@@ -37,7 +37,8 @@ const Wallet: NextPage = () => {
 
   const airdrop = async () => {
     setAirdropLoading(true);
-    const updatedBalance = await handleAirdrop(network, account);
+    let updatedBalance;
+    if (network) updatedBalance = await handleAirdrop(network, account);
     if (typeof updatedBalance === "number") {
       setBalance(updatedBalance);
     }
@@ -64,7 +65,7 @@ const Wallet: NextPage = () => {
           <Paragraph
             copyable={{ text: account.publicKey.toString(), tooltips: `Copy` }}
           >
-            {`Account: ${displayAddress(account.publicKey.toString())}`}
+            {`Account: ${displayAddress(account.publicKey.toBase58())}`}
           </Paragraph>
 
           <p>
